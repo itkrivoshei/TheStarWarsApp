@@ -1,11 +1,24 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MovieDetailsComponent } from './movie-details/movie-details.component';
-import { CharacterDetailsComponent } from './character-details/character-details.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'movies/:id', component: MovieDetailsComponent },
-  { path: 'characters/:id', component: CharacterDetailsComponent },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'movies/:id',
+    loadComponent: () =>
+      import('./movie-details/movie-details.component').then(
+        (m) => m.MovieDetailsComponent
+      ),
+  },
+  {
+    path: 'characters/:id',
+    loadComponent: () =>
+      import('./character-details/character-details.component').then(
+        (m) => m.CharacterDetailsComponent
+      ),
+  },
 ];
