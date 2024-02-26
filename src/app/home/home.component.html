@@ -1,1 +1,11 @@
-<p>home works!</p>
+<div *ngIf="!loading; else loadingTemplate">
+  <ul>
+    <li *ngFor="let movie of movies">
+      {{ movie.title }} ({{ movie.release_date | date : 'longDate' }})
+    </li>
+  </ul>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading movies...</p>
+</ng-template>
