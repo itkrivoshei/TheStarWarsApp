@@ -1,1 +1,19 @@
-<p>character-details works!</p>
+<div *ngIf="character$ | async as character; else loading">
+  <h2>{{ character.name }}</h2>
+  <p>Height: {{ character.height }}</p>
+  <p>Mass: {{ character.mass }}</p>
+  <p>Hair Color: {{ character.hair_color }}</p>
+  <p>Skin Color: {{ character.skin_color }}</p>
+  <p>Eye Color: {{ character.eye_color }}</p>
+  <p>Birth Year: {{ character.birth_year }}</p>
+  <p>Gender: {{ character.gender }}</p>
+
+  <h3>Films</h3>
+  <ul>
+    <li *ngFor="let film of character.films">{{ film }}</li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading character details...</p>
+</ng-template>
