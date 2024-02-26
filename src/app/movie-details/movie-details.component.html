@@ -1,1 +1,21 @@
-<p>movie-details works!</p>
+<div *ngIf="movie$ | async as movie; else loading">
+  <h2>{{ movie.title }}</h2>
+  <p><strong>Director:</strong> {{ movie.director }}</p>
+  <p><strong>Producer:</strong> {{ movie.producer }}</p>
+  <p><strong>Release Date:</strong> {{ movie.release_date | date }}</p>
+  <p><strong>Opening Crawl:</strong></p>
+  <p>{{ movie.opening_crawl }}</p>
+
+  <h3>Characters:</h3>
+  <ul>
+    <li *ngFor="let characterUrl of movie.characters">
+      <a [routerLink]="['/characters', extractId(characterUrl)]">{{
+        characterUrl
+      }}</a>
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading movie details...</p>
+</ng-template>
