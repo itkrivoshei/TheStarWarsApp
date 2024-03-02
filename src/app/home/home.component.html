@@ -1,7 +1,9 @@
 <div *ngIf="!loading; else loadingTemplate">
   <ul>
     <li *ngFor="let movie of movies">
-      {{ movie.title }} ({{ movie.release_date | date : 'longDate' }})
+      <a [routerLink]="['/movies', movie.id]">
+        {{ movie.title }} ({{ movie.release_date | date : 'longDate' }})
+      </a>
     </li>
   </ul>
 </div>
