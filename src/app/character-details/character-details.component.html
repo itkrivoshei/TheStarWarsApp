@@ -8,9 +8,11 @@
   <p>Birth Year: {{ character.birth_year }}</p>
   <p>Gender: {{ character.gender }}</p>
 
-  <h3>Films</h3>
+  <h3>Films:</h3>
   <ul>
-    <li *ngFor="let film of character.films">{{ film }}</li>
+    <li *ngFor="let film of character.films">
+      <a [routerLink]="['/movies', film.episode_id]">{{ film.title }}</a>
+    </li>
   </ul>
 </div>
 
