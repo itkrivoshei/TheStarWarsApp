@@ -8,12 +8,17 @@ import { filmsReducer } from './shared/store/reducers/films.reducer';
 import { DataEffects } from './shared/store/effects/effects';
 import { CoreModule } from './core/core.module';
 
+console.log('Films Reducer:', filmsReducer);
+
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(
-      {},
+      {
+        characters: charactersReducer,
+        films: filmsReducer,
+      },
       {
         runtimeChecks: {
           strictStateImmutability: true,
@@ -23,8 +28,6 @@ import { CoreModule } from './core/core.module';
         },
       }
     ),
-    StoreModule.forFeature('characters', charactersReducer),
-    StoreModule.forFeature('films', filmsReducer),
     EffectsModule.forRoot([DataEffects]),
     CoreModule,
   ],
