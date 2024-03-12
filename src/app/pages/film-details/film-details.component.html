@@ -1,0 +1,19 @@
+<div *ngIf="film$ | async as film; else loading">
+  <h2>{{ film.title }}</h2>
+  <p><strong>Director:</strong> {{ film.director }}</p>
+  <p><strong>Producer:</strong> {{ film.producer }}</p>
+  <p><strong>Release Date:</strong> {{ film.release_date | date }}</p>
+  <p><strong>Opening Crawl:</strong></p>
+  <p>{{ film.opening_crawl }}</p>
+
+  <h3>Characters:</h3>
+  <ul>
+    <li *ngFor="let character of characterNames$ | async">
+      <a [routerLink]="['/characters', character.id]">{{ character.name }}</a>
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading film details...</p>
+</ng-template>
