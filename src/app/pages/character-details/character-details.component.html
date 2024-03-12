@@ -1,0 +1,25 @@
+<div *ngIf="character$ | async as character; else loading">
+  <h2>{{ character.name }}</h2>
+  <p>Height: {{ character.height }} cm</p>
+  <p>Mass: {{ character.mass }} kg</p>
+  <p>Hair Color: {{ character.hair_color }}</p>
+  <p>Skin Color: {{ character.skin_color }}</p>
+  <p>Eye Color: {{ character.eye_color }}</p>
+  <p>Birth Year: {{ character.birth_year }}</p>
+  <p>Gender: {{ character.gender }}</p>
+
+  <h3>Films:</h3>
+  <ng-container *ngIf="films$ | async as films">
+    <ul *ngIf="films.length > 0">
+      <li *ngFor="let film of films">
+        <a [routerLink]="['/films', getFilmIdFromUrl(film.url)]">{{
+          film.url
+        }}</a>
+      </li>
+    </ul>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <p>Loading character details...</p>
+</ng-template>
