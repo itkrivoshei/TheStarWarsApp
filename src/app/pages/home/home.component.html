@@ -1,0 +1,13 @@
+<div *ngIf="films$ | async as films; else loading">
+  <ul>
+    <li *ngFor="let film of films">
+      <a [routerLink]="['/films', film.episode_id]"
+        >{{ film.title }} (Episode {{ film.episode_id }})</a
+      >
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading films...</p>
+</ng-template>
