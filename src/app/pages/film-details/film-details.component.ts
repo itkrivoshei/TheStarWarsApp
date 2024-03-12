@@ -59,7 +59,7 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   extractId(url: string): string {
-    const match = url.match(/people\/(\d+)/); // Regex to extract the ID
-    return match ? match[1] : ''; // Return the captured group which is the ID
+    const match = url.match(/people\/(\d+)/);
+    return match ? match[1] : '';
   }
 }
