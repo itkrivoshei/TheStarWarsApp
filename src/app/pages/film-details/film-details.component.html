@@ -1,4 +1,4 @@
-<div *ngIf="film$ | async as film; else loading">
+<div *ngIf="film$ | async as film; else loading" class="film-details">
   <h2>{{ film.title }}</h2>
   <p><strong>Director:</strong> {{ film.director }}</p>
   <p><strong>Producer:</strong> {{ film.producer }}</p>
@@ -9,7 +9,9 @@
   <h3>Characters:</h3>
   <ul>
     <li *ngFor="let character of characterNames$ | async">
-      <a [routerLink]="['/characters', character.id]">{{ character.name }}</a>
+      <a mat-list-item [routerLink]="['/characters', character.id]">{{
+        character.name
+      }}</a>
     </li>
   </ul>
 </div>
