@@ -1,7 +1,7 @@
-<div *ngIf="films$ | async as films; else loading">
+<div *ngIf="films$ | async as films; else loading" class="films-list">
   <ul>
     <li *ngFor="let film of films">
-      <a [routerLink]="['/films', film.episode_id]"
+      <a mat-list-item [routerLink]="['/films', film.episode_id]"
         >{{ film.title }} (Episode {{ film.episode_id }})</a
       >
     </li>
