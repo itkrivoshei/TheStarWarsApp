@@ -1,0 +1,33 @@
+.films-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 15px;
+  color: #ffe81f;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 10px 0;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s, transform 0.3s;
+
+        &:hover {
+          color: #ffffff;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+#loading {
+  color: #ffe81f;
+  text-align: center;
+}
