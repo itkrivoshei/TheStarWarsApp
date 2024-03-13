@@ -1,0 +1,29 @@
+.centered-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.star-wars-button {
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #ffe81f;
+  background-color: #000;
+  border: 2px solid #ffe81f;
+  padding: 8px 16px;
+  border-radius: 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #ffe81f;
+    color: #000;
+  }
+
+  &.active {
+    background-color: #ffe81f;
+    color: #000;
+    border-color: #ffe81f;
+  }
+}
