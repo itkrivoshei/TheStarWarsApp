@@ -1,4 +1,7 @@
-<div *ngIf="character$ | async as character; else loading">
+<div
+  *ngIf="character$ | async as character; else loading"
+  class="character-details"
+>
   <h2>{{ character.name }}</h2>
   <p>Height: {{ character.height }} cm</p>
   <p>Mass: {{ character.mass }} kg</p>
