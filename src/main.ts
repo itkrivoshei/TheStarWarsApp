@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { charactersReducer } from './app/shared/store/reducers/characters.reducer';
 import { filmsReducer } from './app/shared/store/reducers/films.reducer';
 import { DataEffects } from './app/shared/store/effects/effects';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -30,6 +31,6 @@ bootstrapApplication(AppComponent, {
         }
       ),
       EffectsModule.forRoot([DataEffects])
-    ),
+    ), provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));
