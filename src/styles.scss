@@ -1,8 +1,38 @@
-html,
-body {
-  height: 100%;
+:root {
+  --primary-color: #ffe81f;
+  --secondary-color: #ffffff;
+  --background-color: #000;
 }
+
 body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Pathway Gothic One', sans-serif;
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  background-image: url('./assets/sky.png');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  color: var(--secondary-color);
+}
+
+.mat-toolbar {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.mat-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--secondary-color);
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-raised-button {
+  color: var(--primary-color);
 }
