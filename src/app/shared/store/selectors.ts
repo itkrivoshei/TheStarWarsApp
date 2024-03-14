@@ -1,18 +1,20 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { CharactersState, FilmsState } from './state';
+import { CharactersState, FilmsState, AppState } from './state';
 
-export const selectCharactersState =
-  createFeatureSelector<CharactersState>('characters');
+export const selectCharactersState = createSelector(
+  (state: AppState) => state.characters,
+  (charactersState) => charactersState
+);
 export const selectFilmsState = createFeatureSelector<FilmsState>('films');
 
 export const selectAllCharacters = createSelector(
-  selectCharactersState,
+  (state: AppState) => state.characters,
   (state: CharactersState) => state.list
 );
 
 export const selectSelectedCharacter = createSelector(
   selectCharactersState,
-  (state: CharactersState) => state.selected
+  (charactersState) => charactersState?.selected
 );
 
 export const selectCharactersError = createSelector(
@@ -21,8 +23,8 @@ export const selectCharactersError = createSelector(
 );
 
 export const selectAllFilms = createSelector(
-  selectFilmsState,
-  (filmsState: FilmsState) => (filmsState ? filmsState.list : [])
+  (state: AppState) => state.films,
+  (filmsState: FilmsState) => filmsState.list
 );
 
 export const selectSelectedFilm = createSelector(
