@@ -15,9 +15,9 @@
   <ng-container *ngIf="films$ | async as films">
     <ul *ngIf="films.length > 0">
       <li *ngFor="let film of films">
-        <a [routerLink]="['/films', getFilmIdFromUrl(film.url)]">{{
-          film.url
-        }}</a>
+        <a [routerLink]="['/films', getFilmIdFromUrl(film.url)]"
+          >{{ film.title }} (Episode {{ film.episode_id }})</a
+        >
       </li>
     </ul>
   </ng-container>
