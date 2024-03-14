@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { loadData } from '../../shared/store/actions/actions';
 import { AppState } from '../../shared/store/state';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { Character } from '../../core/models/character.model';
 import { SwapiService } from '../../core/services/swapi.service';
 import { Film } from '../../core/models/film.model';
@@ -38,7 +38,8 @@ export class CharacterDetailsComponent implements OnInit {
         this.films$ = this.character$?.pipe(
           switchMap((character) =>
             this.swapiService.getFilmsByUrls(character?.films || [])
-          )
+          ),
+          map((films) => films.sort((a, b) => a.episode_id - b.episode_id))
         );
       }
     });
