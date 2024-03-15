@@ -1,22 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { FilmDetailsComponent } from './film-details.component';
 
-import { filmDetailsComponent } from './film-details.component';
-
-describe('filmDetailsComponent', () => {
-  let component: filmDetailsComponent;
-  let fixture: ComponentFixture<filmDetailsComponent>;
-
+describe('FilmDetailsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [filmDetailsComponent],
+      imports: [
+        FilmDetailsComponent,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      providers: [provideMockStore({})],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(filmDetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(FilmDetailsComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });
