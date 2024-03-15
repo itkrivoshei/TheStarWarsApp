@@ -8,5 +8,14 @@
       >Home</a
     >
   </nav>
+  <button
+    mat-icon-button
+    class="star-wars-button icon-button"
+    (click)="playMusic()"
+    aria-label="Toggle Star Wars Theme"
+  >
+    <mat-icon>{{ isPlaying ? 'volume_up' : 'volume_off' }}</mat-icon>
+  </button>
+
   <router-outlet></router-outlet>
 </div>
