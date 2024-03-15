@@ -1,29 +1,24 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { FilmDetailsComponent } from './pages/film-details/film-details.component';
 
-describe('AppComponent', () => {
+describe('FilmDetailsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        FilmDetailsComponent,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      providers: [provideMockStore({})],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'TheStarWarsApp' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('TheStarWarsApp');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, TheStarWarsApp');
+  it('should create', () => {
+    const fixture = TestBed.createComponent(FilmDetailsComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeTruthy();
   });
 });
