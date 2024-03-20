@@ -1,0 +1,1 @@
+import{p as t,q as c}from"./chunk-PLZ2TRKD.js";var l=t(e=>e.characters,e=>e),r=c("films"),o=t(l,e=>e?.selected),a=t(e=>e.films,e=>e?e.list:[]),n=t(r,e=>e?e.selected:null);export{o as a,a as b,n as c};
