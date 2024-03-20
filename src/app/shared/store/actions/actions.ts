@@ -22,11 +22,6 @@ export const loadDataFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadDataSuccess = createAction(
-  '[Data API] Load Data Success',
-  props<{ apiType: 'character' | 'film'; data: any }>()
-);
-
 export const loadCharacterSuccess = createAction(
   '[Character API] Load Character Success',
   props<{ character: Character }>()
