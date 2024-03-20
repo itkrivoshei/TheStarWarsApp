@@ -1,4 +1,4 @@
-<div *ngIf="film$ | async as film; else loading" class="film-details">
+<div *ngIf="film$ | async as film" class="film-details">
   <h2>{{ film.title }}</h2>
   <p><strong>Director:</strong> {{ film.director }}</p>
   <p><strong>Producer:</strong> {{ film.producer }}</p>
@@ -15,7 +15,3 @@
     </li>
   </ul>
 </div>
-
-<ng-template #loading>
-  <p>Loading film details...</p>
-</ng-template>
