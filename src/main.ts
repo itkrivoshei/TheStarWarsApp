@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, withFetch } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app/app.routes';
 import { StoreModule } from '@ngrx/store';
@@ -10,9 +10,11 @@ import { charactersReducer } from './app/shared/store/reducers/characters.reduce
 import { filmsReducer } from './app/shared/store/reducers/films.reducer';
 import { DataEffects } from './app/shared/store/effects/effects';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideHttpClient(withFetch()),
     importProvidersFrom(
       HttpClientModule,
       RouterModule.forRoot(appRoutes),
@@ -31,6 +33,7 @@ bootstrapApplication(AppComponent, {
         }
       ),
       EffectsModule.forRoot([DataEffects])
-    ), provideAnimationsAsync(),
+    ),
+    provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));
