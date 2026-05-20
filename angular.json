@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TheStarWarsApp": {
+    "angular-swapi-explorer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/the-star-wars-app",
+            "outputPath": "dist/angular-swapi-explorer",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TheStarWarsApp:build:production"
+              "buildTarget": "angular-swapi-explorer:build:production"
             },
             "development": {
-              "buildTarget": "TheStarWarsApp:build:development"
+              "buildTarget": "angular-swapi-explorer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "TheStarWarsApp:build"
+            "buildTarget": "angular-swapi-explorer:build"
           }
         },
         "test": {
