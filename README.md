@@ -1,64 +1,124 @@
-# 🌌 TheStarWarsApp
+# Star Wars Explorer
 
-[TheStarWarsApp](https://itkrivoshei.github.io/TheStarWarsApp/home) is an Angular project featuring characters and films from the Star Wars universe, utilizing the [Star Wars API (SWAPI)](https://swapi.dev/). The app incorporates Angular Material for the interface, NgRx for state management, and Jasmine for testing.
+Angular single-page application for browsing Star Wars films and characters from the public SWAPI dataset.
 
-## 🔗 Live Demo
+This repository is kept as a portfolio project because it shows Angular application structure, API integration, routing, NgRx state management, Angular Material usage, and GitHub Pages deployment.
 
-Explore the galaxy with the live demo [here](https://itkrivoshei.github.io/TheStarWarsApp/home).
+## Live Demo
 
-## 🚀 Quick Start
+https://itkrivoshei.github.io/TheStarWarsApp/
 
-To begin your adventure:
+## Tech Stack
 
-Clone the project:
+- Angular 17
+- TypeScript
+- NgRx Store and Effects
+- Angular Router
+- Angular Material
+- SCSS
+- SWAPI data API
+- GitHub Pages deployment
 
-```sh
-git clone https://github.com/itkrivoshei/TheStarWarsApp.git
+## Features
+
+- Film list loaded from SWAPI
+- Film detail pages with metadata and character links
+- Character detail pages with profile data and related films
+- Client-side routing for films and characters
+- NgRx-based state management for loaded data
+- Responsive dark UI suitable for a public portfolio project
+- Optional theme audio toggle
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── core/
+│   │   ├── models/
+│   │   └── services/
+│   ├── pages/
+│   │   ├── home/
+│   │   ├── film-details/
+│   │   └── character-details/
+│   ├── shared/
+│   │   └── store/
+│   │       ├── actions/
+│   │       ├── effects/
+│   │       ├── reducers/
+│   │       ├── selectors.ts
+│   │       └── state.ts
+│   ├── app.component.*
+│   ├── app.config.ts
+│   └── app.routes.ts
+└── styles.scss
 ```
 
-Change directory:
+## Getting Started
 
-```sh
+Clone the repository:
+
+```bash
+git clone https://github.com/itkrivoshei/TheStarWarsApp.git
 cd TheStarWarsApp
 ```
 
-Install the starship components (dependencies):
+Install dependencies:
 
-```sh
+```bash
 npm install
 ```
 
-Launch into hyperspace (serve the project locally):
+Run locally:
 
-```sh
-ng serve
+```bash
+npm start
 ```
 
-Plot your course to `http://localhost:4200/` to discover the app.
+Open:
 
-## 🏭 Build and Deploy
-
-To build the Millennium Falcon (project):
-
-```sh
-ng build --base-href "https://itkrivoshei.github.io/TheStarWarsApp/"
+```text
+http://localhost:4200
 ```
 
-Deploy to the GitHub Planets (Pages):
+## Build
 
-```sh
-ngh --dir=dist/TheStarWarsApp
+Create a production build:
+
+```bash
+npm run build
 ```
 
-## 🎨 Features
+For GitHub Pages, build with the repository base path:
 
-- Navigation through the vast Star Wars films and characters via the [Star Wars API (SWAPI)](https://swapi.dev/).
-- Angular Material crafts the cockpit for a sleek, user-friendly interface.
-- NgRx manages the galaxy's state, keeping the Force balanced.
-- A button to play iconic Star Wars themes, enhancing user immersion.
-- Custom SCSS styling for a visually captivating experience.
-- Route navigation to explore films and characters in detail.
+```bash
+ng build --configuration production --base-href /TheStarWarsApp/
+```
 
-## 📄 License
+## Tests
 
-This project is a beacon of freedom in the galaxy and is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
+Run the Angular test suite:
+
+```bash
+npm test
+```
+
+## Portfolio Notes
+
+This project is useful as a public portfolio repository because it demonstrates:
+
+- Angular standalone configuration
+- API-driven frontend development
+- Observable-based data flow with RxJS
+- NgRx actions, effects, reducers, selectors, and typed state
+- Client-side routing and dynamic route parameters
+- Responsive SCSS UI implementation
+- Static deployment workflow for GitHub Pages
+
+## Status
+
+Maintained as a portfolio project. The application depends on public SWAPI-compatible data endpoints, so API availability may affect runtime behavior.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
