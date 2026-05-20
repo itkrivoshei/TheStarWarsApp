@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable, forkJoin, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-import { loadData } from '../../shared/store/actions/actions';
-import { AppState } from '../../shared/store/state';
-import { Film } from '../../core/models/film.model';
-import { selectSelectedFilm } from '../../shared/store/selectors';
-import { SwapiService } from '../../core/services/swapi.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, combineLatest, of } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+
+import { Character } from '../../core/models/character.model';
+import { Film } from '../../core/models/film.model';
+import { SwapiService } from '../../core/services/swapi.service';
+import { loadData } from '../../shared/store/actions/actions';
+import { selectSelectedFilm } from '../../shared/store/selectors';
+import { AppState } from '../../shared/store/state';
+
+interface CharacterLink {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-film-details',
@@ -17,49 +23,54 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   styleUrls: ['./film-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilmDetailsComponent implements OnInit {
-  film$: Observable<Film | null> = of(null);
-  characterNames$: Observable<{ name: string; id: string }[]> = of([]);
+  protected readonly film$: Observable<Film | null> = this.store.select(selectSelectedFilm);
+
+  protected readonly characterLinks$: Observable<CharacterLink[]> = this.film$.pipe(
+    filter((film): film is Film => Boolean(film)),
+    switchMap((film) => {
+      if (!film.characters.length) {
+        return of([]);
+      }
+
+      return combineLatest(
+        film.characters.map((url) =>
+          this.swapiService.getCharacter(this.extractPeopleId(url)).pipe(
+            map((character: Character) => ({
+              id: this.extractPeopleId(url),
+              name: character.name,
+            }))
+          )
+        )
+      );
+    }),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   constructor(
-    private route: ActivatedRoute,
-    private store: Store<AppState>,
-    private swapiService: SwapiService
+    private readonly route: ActivatedRoute,
+    private readonly store: Store<AppState>,
+    private readonly swapiService: SwapiService
   ) {}
 
   ngOnInit(): void {
-    this.film$ = this.route.paramMap.pipe(
-      switchMap((params) => {
-        const id = params.get('id');
-        if (id) {
-          this.store.dispatch(loadData({ apiType: 'film', id }));
-          return this.store.select(selectSelectedFilm);
-        }
-        throw new Error('Film ID not found');
-      })
-    );
-
-    this.characterNames$ = this.film$.pipe(
-      switchMap((film) => {
-        if (film && film.characters) {
-          const characterObservables = film.characters.map((url) =>
-            this.swapiService.getCharacter(this.extractId(url)).pipe(
-              map((character) => ({
-                name: character.name,
-                id: this.extractId(url),
-              }))
-            )
-          );
-          return forkJoin(characterObservables);
-        }
-        return of([]);
-      })
-    );
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id')),
+        filter((id): id is string => Boolean(id)),
+        tap((id) => this.store.dispatch(loadData({ apiType: 'film', id })))
+      )
+      .subscribe();
   }
 
-  extractId(url: string): string {
-    const match = url.match(/people\/(\d+)/);
-    return match ? match[1] : '';
+  protected trackByCharacterId(_: number, character: CharacterLink): string {
+    return character.id;
+  }
+
+  private extractPeopleId(url: string): string {
+    const match = /\/people\/(\d+)\/?$/.exec(url);
+    return match?.[1] ?? '';
   }
 }
