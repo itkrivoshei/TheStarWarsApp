@@ -1,12 +1,22 @@
-# Star Wars Explorer
+# Angular SWAPI Explorer
 
 Angular single-page application for browsing Star Wars films and characters from the public SWAPI dataset.
 
-This repository is kept as a portfolio project because it shows Angular application structure, API integration, routing, NgRx state management, Angular Material usage, and GitHub Pages deployment.
+This repository is kept as a portfolio project because it shows Angular application structure, API integration, routing, NgRx state management, Angular Material usage, and GitHub Pages deployment through GitHub Actions.
 
 ## Live Demo
 
+Recommended repository URL after renaming:
+
+```text
+https://itkrivoshei.github.io/angular-swapi-explorer/
+```
+
+Current repository URL before renaming:
+
+```text
 https://itkrivoshei.github.io/TheStarWarsApp/
+```
 
 ## Tech Stack
 
@@ -17,7 +27,8 @@ https://itkrivoshei.github.io/TheStarWarsApp/
 - Angular Material
 - SCSS
 - SWAPI data API
-- GitHub Pages deployment
+- GitHub Actions
+- GitHub Pages
 
 ## Features
 
@@ -28,6 +39,7 @@ https://itkrivoshei.github.io/TheStarWarsApp/
 - NgRx-based state management for loaded data
 - Responsive dark UI suitable for a public portfolio project
 - Optional theme audio toggle
+- Automated deployment to GitHub Pages from the main branch
 
 ## Project Structure
 
@@ -51,6 +63,7 @@ src/
 │   ├── app.component.*
 │   ├── app.config.ts
 │   └── app.routes.ts
+├── assets/
 └── styles.scss
 ```
 
@@ -59,8 +72,8 @@ src/
 Clone the repository:
 
 ```bash
-git clone https://github.com/itkrivoshei/TheStarWarsApp.git
-cd TheStarWarsApp
+git clone https://github.com/itkrivoshei/angular-swapi-explorer.git
+cd angular-swapi-explorer
 ```
 
 Install dependencies:
@@ -89,10 +102,34 @@ Create a production build:
 npm run build
 ```
 
-For GitHub Pages, build with the repository base path:
+Build for GitHub Pages locally:
 
 ```bash
-ng build --configuration production --base-href /TheStarWarsApp/
+npm run build:pages -- --base-href /angular-swapi-explorer/
+```
+
+The GitHub Actions workflow calculates the repository name automatically, so the deployment still works after renaming the repository.
+
+## Deployment
+
+The project is deployed through GitHub Actions.
+
+Workflow file:
+
+```text
+.github/workflows/deploy-pages.yml
+```
+
+Deployment flow:
+
+```text
+push to main → npm ci → Angular production build → upload Pages artifact → deploy to GitHub Pages
+```
+
+GitHub Pages source should be set to:
+
+```text
+GitHub Actions
 ```
 
 ## Tests
@@ -113,7 +150,7 @@ This project is useful as a public portfolio repository because it demonstrates:
 - NgRx actions, effects, reducers, selectors, and typed state
 - Client-side routing and dynamic route parameters
 - Responsive SCSS UI implementation
-- Static deployment workflow for GitHub Pages
+- CI/CD deployment to GitHub Pages using GitHub Actions
 
 ## Status
 
