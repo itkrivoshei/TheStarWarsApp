@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import * as DataActions from '../actions/actions';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
+import { Character } from '../../../core/models/character.model';
+import { Film } from '../../../core/models/film.model';
 import { SwapiService } from '../../../core/services/swapi.service';
+import * as DataActions from '../actions/actions';
 
 @Injectable()
 export class DataEffects {
@@ -13,46 +16,28 @@ export class DataEffects {
       mergeMap((action) =>
         this.fetchData(action.apiType, action.id).pipe(
           map((data) => this.handleSuccess(action.apiType, data)),
-          catchError((error) => of(DataActions.loadDataFailure({ error })))
+          catchError((error: unknown) => of(DataActions.loadDataFailure({ error })))
         )
       )
     )
   );
 
-  constructor(private actions$: Actions, private swapiService: SwapiService) {}
+  constructor(private readonly actions$: Actions, private readonly swapiService: SwapiService) {}
 
-  private fetchData(apiType: 'character' | 'film', id?: string) {
-    switch (apiType) {
-      case 'film':
-        return id
-          ? this.swapiService.getFilm(id)
-          : this.swapiService.getFilms();
-      case 'character':
-        return id
-          ? this.swapiService.getCharacter(id)
-          : this.swapiService.getCharacter('');
-      default:
-        console.warn(`Unhandled apiType or missing id: ${apiType}`);
-        return of(null);
+  private fetchData(apiType: 'character' | 'film', id: string): Observable<Character | Film | Film[]> {
+    if (apiType === 'film') {
+      return id ? this.swapiService.getFilm(id) : this.swapiService.getFilms();
     }
+
+    return this.swapiService.getCharacter(id);
   }
 
-  private handleSuccess(apiType: 'character' | 'film', data: any) {
-    switch (apiType) {
-      case 'film': {
-        const films = data.results
-          ? data.results
-          : Array.isArray(data)
-          ? data
-          : [data];
-        return DataActions.loadFilmsSuccess({ films });
-      }
-      case 'character': {
-        const character = data;
-        return DataActions.loadCharacterSuccess({ character });
-      }
-      default:
-        return DataActions.loadDataFailure({ error: 'Invalid apiType' });
+  private handleSuccess(apiType: 'character' | 'film', data: Character | Film | Film[]) {
+    if (apiType === 'film') {
+      const films = Array.isArray(data) ? data : [data as Film];
+      return DataActions.loadFilmsSuccess({ films });
     }
+
+    return DataActions.loadCharacterSuccess({ character: data as Character });
   }
 }
