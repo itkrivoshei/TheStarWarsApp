@@ -1,45 +1,53 @@
 # Angular SWAPI Explorer
 
-Angular single-page application for browsing Star Wars films and characters from the public SWAPI dataset.
+Angular single-page application for browsing Star Wars films and characters from a public SWAPI-compatible dataset.
 
-This repository is kept as a portfolio project because it shows Angular application structure, API integration, routing, NgRx state management, Angular Material usage, and GitHub Pages deployment through GitHub Actions.
+This repository is maintained as a portfolio project. It demonstrates Angular application structure, API integration, client-side routing, NgRx state management, responsive SCSS styling, and GitHub Pages deployment through GitHub Actions.
 
 ## Live Demo
-
-Recommended repository URL after renaming:
 
 ```text
 https://itkrivoshei.github.io/angular-swapi-explorer/
 ```
 
-Current repository URL before renaming:
+## Overview
+
+The application loads film and character data from a public API and presents it through a responsive Angular interface.
 
 ```text
-https://itkrivoshei.github.io/TheStarWarsApp/
+GitHub Pages
+    ↓
+Angular SPA
+    ↓
+SWAPI-compatible public API
+    ↓
+Films and characters data
 ```
 
 ## Tech Stack
 
 - Angular 17
 - TypeScript
-- NgRx Store and Effects
 - Angular Router
+- NgRx Store and Effects
+- RxJS
 - Angular Material
 - SCSS
-- SWAPI data API
 - GitHub Actions
 - GitHub Pages
 
 ## Features
 
-- Film list loaded from SWAPI
+- Film list loaded from a public SWAPI-compatible API
 - Film detail pages with metadata and character links
 - Character detail pages with profile data and related films
 - Client-side routing for films and characters
-- NgRx-based state management for loaded data
-- Responsive dark UI suitable for a public portfolio project
+- NgRx-based state management
+- Typed API service layer
+- Observable-based data flow with RxJS
+- Responsive dark UI
 - Optional theme audio toggle
-- Automated deployment to GitHub Pages from the main branch
+- Automated deployment to GitHub Pages from the `main` branch
 
 ## Project Structure
 
@@ -82,13 +90,13 @@ Install dependencies:
 npm install
 ```
 
-Run locally:
+Run the development server:
 
 ```bash
 npm start
 ```
 
-Open:
+Open the app locally:
 
 ```text
 http://localhost:4200
@@ -108,11 +116,9 @@ Build for GitHub Pages locally:
 npm run build:pages -- --base-href /angular-swapi-explorer/
 ```
 
-The GitHub Actions workflow calculates the repository name automatically, so the deployment still works after renaming the repository.
-
 ## Deployment
 
-The project is deployed through GitHub Actions.
+The project is deployed with GitHub Actions.
 
 Workflow file:
 
@@ -123,16 +129,26 @@ Workflow file:
 Deployment flow:
 
 ```text
-push to main → npm ci → Angular production build → upload Pages artifact → deploy to GitHub Pages
+push to main
+    ↓
+npm ci
+    ↓
+Angular production build
+    ↓
+upload GitHub Pages artifact
+    ↓
+deploy to GitHub Pages
 ```
 
-GitHub Pages source should be set to:
+GitHub Pages should be configured with:
 
 ```text
-GitHub Actions
+Settings → Pages → Source → GitHub Actions
 ```
 
-## Tests
+The workflow calculates the repository name automatically, so the Pages base path stays correct after repository renaming.
+
+## Testing
 
 Run the Angular test suite:
 
@@ -144,18 +160,22 @@ npm test
 
 This project is useful as a public portfolio repository because it demonstrates:
 
-- Angular standalone configuration
+- Angular standalone application configuration
 - API-driven frontend development
-- Observable-based data flow with RxJS
+- TypeScript models and service abstraction
+- RxJS Observable-based data flow
 - NgRx actions, effects, reducers, selectors, and typed state
-- Client-side routing and dynamic route parameters
-- Responsive SCSS UI implementation
-- CI/CD deployment to GitHub Pages using GitHub Actions
+- Dynamic routing with route parameters
+- Responsive SCSS interface design
+- Static deployment through GitHub Pages
+- CI/CD deployment using GitHub Actions
 
 ## Status
 
-Maintained as a portfolio project. The application depends on public SWAPI-compatible data endpoints, so API availability may affect runtime behavior.
+Maintained as a portfolio project.
+
+The application depends on a public SWAPI-compatible data endpoint, so API availability may affect runtime behavior.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
