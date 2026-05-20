@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { loadData } from '../../shared/store/actions/actions';
-import { AppState } from '../../shared/store/state';
-import { switchMap, map } from 'rxjs/operators';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+
 import { Character } from '../../core/models/character.model';
-import { SwapiService } from '../../core/services/swapi.service';
 import { Film } from '../../core/models/film.model';
+import { SwapiService } from '../../core/services/swapi.service';
+import { loadData } from '../../shared/store/actions/actions';
 import { selectSelectedCharacter } from '../../shared/store/selectors';
+import { AppState } from '../../shared/store/state';
 
 @Component({
   selector: 'app-character-details',
@@ -18,35 +18,45 @@ import { selectSelectedCharacter } from '../../shared/store/selectors';
   imports: [CommonModule, RouterModule],
   templateUrl: './character-details.component.html',
   styleUrls: ['./character-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterDetailsComponent implements OnInit {
-  character$?: Observable<Character | null>;
-  films$: Observable<Film[]> | undefined;
+  protected readonly character$: Observable<Character | null> = this.store.select(selectSelectedCharacter);
+
+  protected readonly films$: Observable<Film[]> = this.character$.pipe(
+    switchMap((character) => {
+      if (!character || character.films.length === 0) {
+        return of([]);
+      }
+
+      return this.swapiService.getFilmsByUrls(character.films);
+    }),
+    map((films) => [...films].sort((a, b) => a.episode_id - b.episode_id)),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   constructor(
-    private route: ActivatedRoute,
-    private store: Store<AppState>,
-    private swapiService: SwapiService
+    private readonly route: ActivatedRoute,
+    private readonly store: Store<AppState>,
+    private readonly swapiService: SwapiService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const id = params['id'];
-      if (id) {
-        this.store.dispatch(loadData({ apiType: 'character', id }));
-        this.character$ = this.store.select(selectSelectedCharacter);
-        this.films$ = this.character$?.pipe(
-          switchMap((character) =>
-            this.swapiService.getFilmsByUrls(character?.films || [])
-          ),
-          map((films) => films.sort((a, b) => a.episode_id - b.episode_id))
-        );
-      }
-    });
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id')),
+        filter((id): id is string => Boolean(id)),
+        tap((id) => this.store.dispatch(loadData({ apiType: 'character', id })))
+      )
+      .subscribe();
   }
 
-  public getFilmIdFromUrl(filmUrl: string): string {
-    const matches = /\/api\/.*?\/(\d+)(\/?)$/.exec(filmUrl);
+  protected trackByFilmEpisode(_: number, film: Film): number {
+    return film.episode_id;
+  }
+
+  protected getFilmIdFromUrl(filmUrl: string): string {
+    const matches = filmUrl.match(/films\/(\d+)/);
     return matches ? matches[1] : '';
   }
 }
