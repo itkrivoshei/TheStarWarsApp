@@ -1,13 +1,14 @@
 {
-  "name": "the-star-wars-app",
+  "name": "angular-swapi-explorer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:pages": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:TheStarWarsApp": "node dist/the-star-wars-app/server/server.mjs"
+    "serve:ssr:angular-swapi-explorer": "node dist/the-star-wars-app/server/server.mjs"
   },
   "private": true,
   "dependencies": {
