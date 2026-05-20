@@ -1,9 +1,20 @@
-<div *ngIf="films$ | async as films" class="films-list">
-  <ul>
-    <li *ngFor="let film of films">
-      <a mat-list-item [routerLink]="['/films', film.episode_id]"
-        >{{ film.title }} (Episode {{ film.episode_id }})</a
-      >
-    </li>
-  </ul>
-</div>
+<section class="hero">
+  <p class="eyebrow">Angular data explorer</p>
+  <h1>Star Wars Films and Characters</h1>
+  <p>
+    A small Angular application that consumes SWAPI data, stores it with NgRx,
+    and presents film and character routes in a polished single-page interface.
+  </p>
+</section>
+
+<section *ngIf="films$ | async as films" class="films-list" aria-label="Star Wars films">
+  <a
+    *ngFor="let film of films; trackBy: trackByEpisodeId"
+    class="film-card"
+    [routerLink]="['/films', getFilmResourceId(film.url)]"
+  >
+    <span class="film-card__episode">Episode {{ film.episode_id }}</span>
+    <strong>{{ film.title }}</strong>
+    <small>{{ film.release_date | date: 'yyyy' }} • {{ film.director }}</small>
+  </a>
+</section>
