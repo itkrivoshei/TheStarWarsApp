@@ -1,50 +1,112 @@
-.centered-content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 56px;
+}
+
+.app-header {
+  position: sticky;
+  top: 16px;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
   align-items: center;
-  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.84);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
 }
 
-.star-wars-button {
-  font-family: 'Pathway Gothic One', sans-serif;
-  color: #ffe81f;
-  background-color: #000;
-  border: 2px solid #ffe81f;
-  padding: 8px 16px;
-  padding-left: 12px;
-  border-radius: 0;
-  margin-bottom: 20px;
-  transition: background-color 0.3s, color 0.3s;
+.brand {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  color: #f8fafc;
+  text-decoration: none;
 
-  &:hover {
-    background-color: #ffe81f;
-    color: #000;
+  strong,
+  small {
+    display: block;
   }
 
-  &.active {
-    background-color: #ffe81f;
-    color: #000;
-    border-color: #ffe81f;
+  strong {
+    line-height: 1.1;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  small {
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 0.78rem;
   }
 }
 
-.icon-button {
-  color: #ffe81f;
-  border: none;
-  width: 48px;
-  height: 48px;
-  position: fixed;
-  margin: 10px;
-  top: 0;
-  left: 0;
+.brand__mark {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #facc15, #f97316);
+  color: #111827;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
 
-  &:hover {
-    background-color: rgba(255, 232, 31, 0.8);
+.app-nav a,
+.audio-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  border: 1px solid rgba(250, 204, 21, 0.32);
+  border-radius: 999px;
+  background: rgba(250, 204, 21, 0.1);
+  color: #fde68a;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.app-nav a {
+  padding: 0 18px;
+  font-weight: 700;
+}
+
+.app-nav a:hover,
+.app-nav a.active,
+.audio-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(250, 204, 21, 0.72);
+  background: rgba(250, 204, 21, 0.18);
+}
+
+.audio-button {
+  width: 42px;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 10px;
   }
 
-  mat-icon {
-    width: 24px;
-    height: 24px;
+  .app-header {
+    top: 8px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .app-nav {
+    display: none;
   }
 }
