@@ -1,21 +1,26 @@
-<div class="centered-content">
-  <nav>
-    <a
-      mat-button
-      routerLink="/home"
-      routerLinkActive="active"
-      class="star-wars-button"
-      >Home</a
+<main class="app-shell">
+  <header class="app-header">
+    <a routerLink="/home" class="brand" aria-label="Go to home page">
+      <span class="brand__mark">SW</span>
+      <span>
+        <strong>{{ title }}</strong>
+        <small>Angular • NgRx • SWAPI</small>
+      </span>
+    </a>
+
+    <nav class="app-nav" aria-label="Primary navigation">
+      <a routerLink="/home" routerLinkActive="active">Films</a>
+    </nav>
+
+    <button
+      type="button"
+      class="audio-button"
+      (click)="toggleMusic()"
+      aria-label="Toggle theme music"
     >
-  </nav>
-  <button
-    mat-icon-button
-    class="star-wars-button icon-button"
-    (click)="playMusic()"
-    aria-label="Toggle Star Wars Theme"
-  >
-    <mat-icon>{{ isPlaying ? 'volume_up' : 'volume_off' }}</mat-icon>
-  </button>
+      <mat-icon>{{ isPlaying ? 'volume_up' : 'volume_off' }}</mat-icon>
+    </button>
+  </header>
 
   <router-outlet></router-outlet>
-</div>
+</main>
