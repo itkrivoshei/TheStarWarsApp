@@ -11,6 +11,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: github-pages
   cancel-in-progress: true
@@ -39,12 +42,18 @@ jobs:
           npm run build:pages -- --base-href "/${REPO_NAME}/"
 
       - name: Add SPA fallback
-        run: cp dist/the-star-wars-app/browser/index.html dist/the-star-wars-app/browser/404.html
+        run: cp dist/angular-swapi-explorer/browser/index.html dist/angular-swapi-explorer/browser/404.html
+
+      - name: Verify build output
+        run: |
+          test -f dist/angular-swapi-explorer/browser/index.html
+          test -f dist/angular-swapi-explorer/browser/404.html
+          ls -la dist/angular-swapi-explorer/browser
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/the-star-wars-app/browser
+          path: dist/angular-swapi-explorer/browser
 
   deploy:
     name: Deploy to GitHub Pages
