@@ -9,13 +9,13 @@ export interface AppState {
 export interface CharactersState {
   list: Character[];
   selected: Character | null;
-  error: any;
+  error: string | null;
 }
 
 export interface FilmsState {
   list: Film[];
   selected: Film | null;
-  error: any;
+  error: string | null;
 }
 
 export const initialCharactersState: CharactersState = {
