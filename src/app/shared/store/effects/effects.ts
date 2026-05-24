@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { Character } from '../../../core/models/character.model';
 import { Film } from '../../../core/models/film.model';
@@ -16,7 +16,9 @@ export class DataEffects {
       mergeMap((action) =>
         this.fetchData(action.apiType, action.id).pipe(
           map((data) => this.handleSuccess(action.apiType, data)),
-          catchError((error: unknown) => of(DataActions.loadDataFailure({ error })))
+          catchError((error: unknown) =>
+            of(DataActions.loadDataFailure({ error: this.getErrorMessage(error) }))
+          )
         )
       )
     )
@@ -39,5 +41,13 @@ export class DataEffects {
     }
 
     return DataActions.loadCharacterSuccess({ character: data as Character });
+  }
+
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message;
+    }
+
+    return 'Unable to load data from SWAPI.';
   }
 }
