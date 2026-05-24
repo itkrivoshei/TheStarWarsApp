@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { Character } from '../../../core/models/character.model';
 import { Film } from '../../../core/models/film.model';
 
@@ -19,7 +20,7 @@ export const loadFilmsSuccess = createAction(
 
 export const loadDataFailure = createAction(
   '[Data] Load Failure',
-  props<{ error: any }>()
+  props<{ error: string }>()
 );
 
 export const loadCharacterSuccess = createAction(
