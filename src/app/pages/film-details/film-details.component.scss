@@ -68,10 +68,31 @@
 .links-section {
   h2 {
     margin: 0 0 14px;
-    font-size: 1rem;
     color: var(--color-accent);
+    font-size: 1rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+}
+
+.crawl {
+  position: relative;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(250, 204, 21, 0.08), transparent 38%),
+    rgba(2, 6, 23, 0.32);
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 72px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    content: '';
   }
 }
 
