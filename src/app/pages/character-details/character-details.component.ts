@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -35,6 +36,8 @@ export class CharacterDetailsComponent implements OnInit {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: Store<AppState>,
@@ -46,7 +49,8 @@ export class CharacterDetailsComponent implements OnInit {
       .pipe(
         map((params) => params.get('id')),
         filter((id): id is string => Boolean(id)),
-        tap((id) => this.store.dispatch(loadData({ apiType: 'character', id })))
+        tap((id) => this.store.dispatch(loadData({ apiType: 'character', id }))),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
   }
@@ -56,7 +60,7 @@ export class CharacterDetailsComponent implements OnInit {
   }
 
   protected getFilmIdFromUrl(filmUrl: string): string {
-    const matches = filmUrl.match(/films\/(\d+)/);
-    return matches ? matches[1] : '';
+    const matches = /films\/(\d+)/.exec(filmUrl);
+    return matches?.[1] ?? '';
   }
 }
