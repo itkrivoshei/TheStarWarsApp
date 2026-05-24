@@ -16,9 +16,11 @@
       type="button"
       class="audio-button"
       (click)="toggleMusic()"
-      aria-label="Toggle theme music"
+      [attr.aria-label]="isPlaying ? 'Stop theme music' : 'Play theme music'"
+      [attr.aria-pressed]="isPlaying"
+      [title]="isPlaying ? 'Stop theme music' : 'Play theme music'"
     >
-      <mat-icon>{{ isPlaying ? 'volume_up' : 'volume_off' }}</mat-icon>
+      <mat-icon aria-hidden="true">{{ isPlaying ? 'volume_up' : 'volume_off' }}</mat-icon>
     </button>
   </header>
 
