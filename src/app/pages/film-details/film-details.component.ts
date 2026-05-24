@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -36,18 +37,22 @@ export class FilmDetailsComponent implements OnInit {
       }
 
       return combineLatest(
-        film.characters.map((url) =>
-          this.swapiService.getCharacter(this.extractPeopleId(url)).pipe(
+        film.characters.map((url) => {
+          const characterId = this.extractPeopleId(url);
+
+          return this.swapiService.getCharacter(characterId).pipe(
             map((character: Character) => ({
-              id: this.extractPeopleId(url),
+              id: characterId,
               name: character.name,
             }))
-          )
-        )
+          );
+        })
       );
     }),
     shareReplay({ bufferSize: 1, refCount: true })
   );
+
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -60,7 +65,8 @@ export class FilmDetailsComponent implements OnInit {
       .pipe(
         map((params) => params.get('id')),
         filter((id): id is string => Boolean(id)),
-        tap((id) => this.store.dispatch(loadData({ apiType: 'film', id })))
+        tap((id) => this.store.dispatch(loadData({ apiType: 'film', id }))),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
   }
