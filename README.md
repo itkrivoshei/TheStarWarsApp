@@ -1,102 +1,59 @@
 # Angular SWAPI Explorer
 
-Angular single-page application for browsing Star Wars films and characters from a public SWAPI-compatible dataset.
+[![Pages workflow](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-swapi-explorer/deploy-pages.yml?branch=main&style=flat-square&label=pages)](https://github.com/itkrivoshei/angular-swapi-explorer/actions/workflows/deploy-pages.yml)
+[![Angular](https://img.shields.io/badge/Angular-17-DD0031?style=flat-square&logo=angular)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-This repository is maintained as a portfolio project. It demonstrates Angular application structure, API integration, client-side routing, NgRx state management, responsive SCSS styling, and GitHub Pages deployment through GitHub Actions.
+Angular application for browsing Star Wars films and characters from a SWAPI-compatible public API.
 
-## Live Demo
-
-```text
-https://itkrivoshei.github.io/angular-swapi-explorer/
-```
-
-## Overview
-
-The application loads film and character data from a public API and presents it through a responsive Angular interface.
-
-```text
-GitHub Pages
-    ↓
-Angular SPA
-    ↓
-SWAPI-compatible public API
-    ↓
-Films and characters data
-```
-
-## Tech Stack
+## Tech stack
 
 - Angular 17
 - TypeScript
 - Angular Router
 - NgRx Store and Effects
 - RxJS
-- Angular Material
+- Angular Material icons
 - SCSS
 - GitHub Actions
 - GitHub Pages
 
 ## Features
 
-- Film list loaded from a public SWAPI-compatible API
+- Film list from a SWAPI-compatible API
 - Film detail pages with metadata and character links
 - Character detail pages with profile data and related films
 - Client-side routing for films and characters
 - NgRx-based state management
-- Typed API service layer
-- Observable-based data flow with RxJS
-- Responsive dark UI
-- Optional theme audio toggle
-- Automated deployment to GitHub Pages from the `main` branch
+- Responsive dark interface
 
-## Project Structure
+## Requirements
 
-```text
-src/
-├── app/
-│   ├── core/
-│   │   ├── models/
-│   │   └── services/
-│   ├── pages/
-│   │   ├── home/
-│   │   ├── film-details/
-│   │   └── character-details/
-│   ├── shared/
-│   │   └── store/
-│   │       ├── actions/
-│   │       ├── effects/
-│   │       ├── reducers/
-│   │       ├── selectors.ts
-│   │       └── state.ts
-│   ├── app.component.*
-│   ├── app.config.ts
-│   └── app.routes.ts
-├── assets/
-└── styles.scss
-```
+- Node.js 20 recommended
+- npm
 
-## Getting Started
-
-Clone the repository:
+## Installation
 
 ```bash
-git clone https://github.com/itkrivoshei/angular-swapi-explorer.git
-cd angular-swapi-explorer
+npm ci
 ```
 
-Install dependencies:
+For dependency updates or lockfile regeneration, use:
 
 ```bash
 npm install
 ```
 
-Run the development server:
+## Development
+
+Run the local development server:
 
 ```bash
 npm start
 ```
 
-Open the app locally:
+The app runs at:
 
 ```text
 http://localhost:4200
@@ -110,72 +67,66 @@ Create a production build:
 npm run build
 ```
 
-Build for GitHub Pages locally:
+Build with the GitHub Pages base path:
 
 ```bash
 npm run build:pages -- --base-href /angular-swapi-explorer/
 ```
 
-## Deployment
+## Test
 
-The project is deployed with GitHub Actions.
+Run tests once in headless Chrome:
 
-Workflow file:
-
-```text
-.github/workflows/deploy-pages.yml
+```bash
+npm run test:ci
 ```
 
-Deployment flow:
-
-```text
-push to main
-    ↓
-npm ci
-    ↓
-Angular production build
-    ↓
-upload GitHub Pages artifact
-    ↓
-deploy to GitHub Pages
-```
-
-GitHub Pages should be configured with:
-
-```text
-Settings → Pages → Source → GitHub Actions
-```
-
-The workflow calculates the repository name automatically, so the Pages base path stays correct after repository renaming.
-
-## Testing
-
-Run the Angular test suite:
+Run the default Angular test watcher:
 
 ```bash
 npm test
 ```
 
-## Portfolio Notes
+Run the local verification command:
 
-This project is useful as a public portfolio repository because it demonstrates:
+```bash
+npm run verify
+```
 
-- Angular standalone application configuration
-- API-driven frontend development
-- TypeScript models and service abstraction
-- RxJS Observable-based data flow
-- NgRx actions, effects, reducers, selectors, and typed state
-- Dynamic routing with route parameters
-- Responsive SCSS interface design
-- Static deployment through GitHub Pages
-- CI/CD deployment using GitHub Actions
+## Deployment
 
-## Status
+The repository includes a GitHub Actions workflow for GitHub Pages:
 
-Maintained as a portfolio project.
+```text
+.github/workflows/deploy-pages.yml
+```
 
-The application depends on a public SWAPI-compatible data endpoint, so API availability may affect runtime behavior.
+The workflow installs dependencies with `npm ci`, runs `npm run test:ci`, builds the app with the correct repository base path, adds a SPA fallback, and deploys the generated browser output to GitHub Pages.
+
+GitHub Pages should be configured to use:
+
+```text
+Settings → Pages → Source → GitHub Actions
+```
+
+## Project structure
+
+```text
+src/
+├── app/
+│   ├── core/
+│   │   ├── models/
+│   │   └── services/
+│   ├── pages/
+│   │   ├── character-details/
+│   │   ├── film-details/
+│   │   └── home/
+│   └── shared/
+│       └── store/
+├── assets/
+└── styles.scss
+```
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the [MIT License](LICENSE).
