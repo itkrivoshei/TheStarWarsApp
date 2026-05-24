@@ -9,6 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "verify": "npm run test:ci && npm run build",
     "serve:ssr:angular-swapi-explorer": "node dist/angular-swapi-explorer/server/server.mjs"
   },
   "private": true,
