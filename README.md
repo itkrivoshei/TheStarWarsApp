@@ -1,132 +1,72 @@
 # Angular SWAPI Explorer
 
-[![Pages workflow](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-swapi-explorer/deploy-pages.yml?branch=main&style=flat-square&label=pages)](https://github.com/itkrivoshei/angular-swapi-explorer/actions/workflows/deploy-pages.yml)
-[![Angular](https://img.shields.io/badge/Angular-17-DD0031?style=flat-square&logo=angular)](https://angular.dev/)
+[![Live app](https://img.shields.io/badge/live-GitHub%20Pages-222?style=flat-square&logo=githubpages&logoColor=white)](https://itkrivoshei.github.io/angular-swapi-explorer/)
+[![Pages workflow](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-swapi-explorer/deploy-pages.yml?branch=main&style=flat-square&label=pages&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/angular-swapi-explorer/actions/workflows/deploy-pages.yml)
+[![Angular](https://img.shields.io/badge/Angular-17-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-Angular application for browsing Star Wars films and characters from a SWAPI-compatible public API.
+## [Open Live Explorer ->](https://itkrivoshei.github.io/angular-swapi-explorer/)
 
-## Tech stack
+Angular single-page app for browsing Star Wars films and characters from the SWAPI-compatible `swapi.info` API.
 
-- Angular 17
-- TypeScript
-- Angular Router
-- NgRx Store and Effects
-- RxJS
-- Angular Material icons
-- SCSS
-- GitHub Actions
-- GitHub Pages
+## Navigation Model
 
-## Features
+| Route | View |
+| --- | --- |
+| `/home` | Film list sorted by episode |
+| `/films/:id` | Film metadata with linked character records |
+| `/characters/:id` | Character profile with related films |
 
-- Film list from a SWAPI-compatible API
-- Film detail pages with metadata and character links
-- Character detail pages with profile data and related films
-- Client-side routing for films and characters
-- NgRx-based state management
-- Responsive dark interface
+The app uses lazy-loaded standalone pages, NgRx state slices for films and characters, and RxJS streams for API orchestration.
 
-## Requirements
+## Stack Notes
 
-- Node.js 20 recommended
-- npm
+- Angular 17 with client routing and SSR-ready project structure.
+- NgRx Store and Effects for async loading paths.
+- `SwapiService` wraps `https://swapi.info/api`.
+- SCSS creates the dark Star Wars-style interface.
+- GitHub Actions deploys the browser build to GitHub Pages with a SPA fallback.
 
-## Installation
+## Local Workflow
 
 ```bash
+git clone https://github.com/itkrivoshei/angular-swapi-explorer.git
+cd angular-swapi-explorer
 npm ci
-```
-
-For dependency updates or lockfile regeneration, use:
-
-```bash
-npm install
-```
-
-## Development
-
-Run the local development server:
-
-```bash
 npm start
 ```
 
-The app runs at:
+Open `http://localhost:4200`.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm start` | Run `ng serve` |
+| `npm run build` | Build production assets |
+| `npm run build:pages -- --base-href /angular-swapi-explorer/` | Build for the Pages URL |
+| `npm run test:ci` | Run Karma tests once in headless Chrome |
+| `npm run verify` | Run tests and build |
+
+## Source Layout
 
 ```text
-http://localhost:4200
+src/app/
+├── core/
+│   ├── models/
+│   └── services/swapi.service.ts
+├── pages/
+│   ├── character-details/
+│   ├── film-details/
+│   └── home/
+└── shared/store/
 ```
 
-## Build
+## Live App
 
-Create a production build:
-
-```bash
-npm run build
-```
-
-Build with the GitHub Pages base path:
-
-```bash
-npm run build:pages -- --base-href /angular-swapi-explorer/
-```
-
-## Test
-
-Run tests once in headless Chrome:
-
-```bash
-npm run test:ci
-```
-
-Run the default Angular test watcher:
-
-```bash
-npm test
-```
-
-Run the local verification command:
-
-```bash
-npm run verify
-```
-
-## Deployment
-
-The repository includes a GitHub Actions workflow for GitHub Pages:
-
-```text
-.github/workflows/deploy-pages.yml
-```
-
-The workflow installs dependencies with `npm ci`, runs `npm run test:ci`, builds the app with the correct repository base path, adds a SPA fallback, and deploys the generated browser output to GitHub Pages.
-
-GitHub Pages should be configured to use:
-
-```text
-Settings → Pages → Source → GitHub Actions
-```
-
-## Project structure
-
-```text
-src/
-├── app/
-│   ├── core/
-│   │   ├── models/
-│   │   └── services/
-│   ├── pages/
-│   │   ├── character-details/
-│   │   ├── film-details/
-│   │   └── home/
-│   └── shared/
-│       └── store/
-├── assets/
-└── styles.scss
-```
+https://itkrivoshei.github.io/angular-swapi-explorer/
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE)
