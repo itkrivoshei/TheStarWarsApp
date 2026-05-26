@@ -6,8 +6,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-## [Open Live Explorer ->](https://itkrivoshei.github.io/angular-swapi-explorer/)
-
 Angular single-page app for browsing Star Wars films and characters from the SWAPI-compatible `swapi.info` API.
 
 ## Navigation Model
@@ -62,10 +60,6 @@ src/app/
 │   └── home/
 └── shared/store/
 ```
-
-## Live App
-
-https://itkrivoshei.github.io/angular-swapi-explorer/
 
 ## License
 
