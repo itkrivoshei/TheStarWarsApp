@@ -49,3 +49,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+node_modules/
+dist/
+build/
+.env.local
+.vscode/
+__pycache__/
+*.pyc
+coverage/
+.pytest_cache/
+*.log
