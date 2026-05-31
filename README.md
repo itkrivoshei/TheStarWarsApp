@@ -2,8 +2,8 @@
 
 [![Live app](https://img.shields.io/badge/live-GitHub%20Pages-222?style=flat-square&logo=githubpages&logoColor=white)](https://itkrivoshei.github.io/angular-swapi-explorer/)
 [![Pages workflow](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-swapi-explorer/deploy-pages.yml?branch=main&style=flat-square&label=pages&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/angular-swapi-explorer/actions/workflows/deploy-pages.yml)
-[![Angular](https://img.shields.io/badge/Angular-17-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
 Angular single-page app for browsing Star Wars films and characters from the SWAPI-compatible `swapi.info` API.
@@ -20,7 +20,7 @@ The app uses lazy-loaded standalone pages, NgRx state slices for films and chara
 
 ## Stack Notes
 
-- Angular 17 with client routing and SSR-ready project structure.
+- Angular 21 with client routing for GitHub Pages.
 - NgRx Store and Effects for async loading paths.
 - `SwapiService` wraps `https://swapi.info/api`.
 - SCSS creates the dark Star Wars-style interface.

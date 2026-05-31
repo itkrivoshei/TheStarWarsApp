@@ -31,7 +31,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --loglevel=error
 
       - name: Run tests
         run: npm run test:ci
@@ -42,18 +42,26 @@ jobs:
           npm run build:pages -- --base-href "/${REPO_NAME}/"
 
       - name: Add SPA fallback
-        run: cp dist/angular-swapi-explorer/browser/index.html dist/angular-swapi-explorer/browser/404.html
+        run: |
+          if [ -d "dist/angular-swapi-explorer/browser" ]; then
+            APP_DIR="dist/angular-swapi-explorer/browser"
+          else
+            APP_DIR="dist/angular-swapi-explorer"
+          fi
+
+          cp "${APP_DIR}/index.html" "${APP_DIR}/404.html"
+          echo "APP_DIR=${APP_DIR}" >> "${GITHUB_ENV}"
 
       - name: Verify build output
         run: |
-          test -f dist/angular-swapi-explorer/browser/index.html
-          test -f dist/angular-swapi-explorer/browser/404.html
-          ls -la dist/angular-swapi-explorer/browser
+          test -f "${APP_DIR}/index.html"
+          test -f "${APP_DIR}/404.html"
+          ls -la "${APP_DIR}"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist/angular-swapi-explorer/browser
+          path: ${{ env.APP_DIR }}
 
   deploy:
     name: Deploy to GitHub Pages
